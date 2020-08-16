@@ -23,9 +23,9 @@ class NodeVisitor {
 }
 
 class Interpreter extends NodeVisitor {
-  constructor(parser) {
+  constructor(tree) {
     super()
-    this.parser = parser
+    this.tree = tree
     this.GLOBAL_SCOPE = {}
     this.visit_Program = this.visit_Program.bind(this)
     this.visit_Block = this.visit_Block.bind(this)
@@ -114,8 +114,7 @@ class Interpreter extends NodeVisitor {
   }
 
   interpret() {
-    const tree = this.parser.parse()
-
+    const tree = this.tree
     if (!tree) {
       return ''
     }
@@ -123,4 +122,4 @@ class Interpreter extends NodeVisitor {
   }
 }
 
-module.exports = Interpreter
+module.exports = { NodeVisitor, Interpreter }

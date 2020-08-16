@@ -1,13 +1,20 @@
 const fs = require('fs')
 const Lexer = require('./lexer')
 const Parser = require('./parser')
-const Interpreter = require('./interpreter')
+const { Interpreter } = require('./interpreter')
+const { SymbolTableBuilder } = require('./symbol')
 
 fs.readFile('part10.txt', function (err, data) {
   const text = data.toString()
   const lexer = new Lexer(text)
   const parser = new Parser(lexer)
-  const interpreter = new Interpreter(parser)
+  const tree = parser.parse()
+
+  const symtabBuilder = new SymbolTableBuilder()
+  symtabBuilder.visit(tree)
+  console.log(symtabBuilder.symtab)
+
+  const interpreter = new Interpreter(tree)
   result = interpreter.interpret()
   console.log('res:', interpreter.GLOBAL_SCOPE)
 })
