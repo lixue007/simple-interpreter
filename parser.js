@@ -74,6 +74,13 @@ class VarDecl {
   }
 }
 
+class ProcedureDecl {
+  constructor(procName, blockNode) {
+    this.procName = procName
+    this.blockNode = blockNode
+  }
+}
+
 class Type {
   constructor(token) {
     this.token = token
@@ -132,6 +139,17 @@ class Parser {
         declarations.push(...varDecl)
         this.eat(TOKEN_TYPE.SEMI)
       }
+    }
+
+    while (this.currentToken.type === TOKEN_TYPE.PROCEDURE) {
+      this.eat(TOKEN_TYPE.PROCEDURE)
+      const procName = this.currentToken.value
+      this.eat(TOKEN_TYPE.ID)
+      this.eat(TOKEN_TYPE.SEMI)
+      const blockNode = this.block()
+      const procDecl = new ProcedureDecl(procName, blockNode)
+      declarations.push(procDecl)
+      this.eat(TOKEN_TYPE.SEMI)
     }
     return declarations
   }

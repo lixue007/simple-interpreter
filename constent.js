@@ -20,6 +20,7 @@ const TOKEN_TYPE = {
   VAR: 'VAR',
   COLON: 'COLON',
   COMMA: 'COMMA',
+  PROCEDURE: 'PROCEDURE',
   EOF: 'EOF',
 }
 

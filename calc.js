@@ -4,7 +4,7 @@ const Parser = require('./parser')
 const { Interpreter } = require('./interpreter')
 const { SymbolTableBuilder } = require('./symbol')
 
-fs.readFile('part10.txt', function (err, data) {
+fs.readFile('part12.txt', function (err, data) {
   const text = data.toString()
   const lexer = new Lexer(text)
   const parser = new Parser(lexer)

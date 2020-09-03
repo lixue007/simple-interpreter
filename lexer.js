@@ -22,6 +22,7 @@ const RESERVED_KEYWORDS = {
   REAL: token(TOKEN_TYPE.REAL, 'REAL'),
   BEGIN: token(TOKEN_TYPE.BEGIN, 'BEGIN'),
   END: token(TOKEN_TYPE.END, 'END'),
+  PROCEDURE: token(TOKEN_TYPE.PROCEDURE, 'PROCEDURE'),
 }
 
 class Lexer {

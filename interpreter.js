@@ -113,6 +113,10 @@ class Interpreter extends NodeVisitor {
     return null
   }
 
+  visit_ProcedureDecl(node) {
+    return null
+  }
+
   interpret() {
     const tree = this.tree
     if (!tree) {

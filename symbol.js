@@ -90,10 +90,6 @@ class SymbolTableBuilder extends NodeVisitor {
     this.visit(node.right)
   }
 
-  visit_Num(node) {
-    return null
-  }
-
   visit_UnaryOp(node) {
     this.visit(node.expr)
   }
@@ -102,10 +98,6 @@ class SymbolTableBuilder extends NodeVisitor {
     for (let child of node.children) {
       this.visit(child)
     }
-  }
-
-  visit_NoOp(node) {
-    return null
   }
 
   visit_VarDecl(node) {
@@ -131,6 +123,18 @@ class SymbolTableBuilder extends NodeVisitor {
     if (!varSymbol) {
       throw Error(`${varName} has not current symbol`)
     }
+  }
+
+  visit_Num(node) {
+    return null
+  }
+
+  visit_NoOp(node) {
+    return null
+  }
+
+  visit_ProcedureDecl(node) {
+    return null
   }
 }
 
