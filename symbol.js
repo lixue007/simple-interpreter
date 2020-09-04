@@ -39,26 +39,26 @@ class SymbolTable {
   }
 
   initBuiltins() {
-    this.define(new BuiltinTypeSymbol('INTEGER'))
-    this.define(new BuiltinTypeSymbol('REAL'))
+    this.insert(new BuiltinTypeSymbol('INTEGER'))
+    this.insert(new BuiltinTypeSymbol('REAL'))
   }
 
   str() {
     return `Symbols:${JSON.stringify(this.symbols)}`
   }
 
-  define(symbol) {
-    // console.log('Define: ', symbol)
+  insert(symbol) {
+    console.log('Insert: ', symbol.name)
     this.symbols[symbol.name] = symbol
   }
 
   lookup(name) {
-    // console.log('Lookup: ', name)
+    console.log('Lookup: ', name)
     return this.symbols[name]
   }
 }
 
-class SymbolTableBuilder extends NodeVisitor {
+class SemanticAnalyzer extends NodeVisitor {
   constructor() {
     super()
     this.symtab = new SymbolTable()
@@ -105,15 +105,16 @@ class SymbolTableBuilder extends NodeVisitor {
     const typeSymbol = this.symtab.lookup(typeName)
     const varName = node.varNode.value
     const varSymbol = new VarSymbol(varName, typeSymbol)
-    this.symtab.define(varSymbol)
+
+    if (this.symtab.lookup(varName)) {
+      throw Error(`Error: Duplicate identifier ${varName} found`)
+    }
+
+    this.symtab.insert(varSymbol)
   }
 
   visit_Assign(node) {
-    const varName = node.left.value
-    const varSymbol = this.symtab.lookup(varName)
-    if (!varSymbol) {
-      throw Error(`${varName} has not current symbol`)
-    }
+    this.visit(node.left)
     this.visit(node.right)
   }
 
@@ -138,4 +139,4 @@ class SymbolTableBuilder extends NodeVisitor {
   }
 }
 
-module.exports = { SymbolTableBuilder }
+module.exports = { SemanticAnalyzer }

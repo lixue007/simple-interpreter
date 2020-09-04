@@ -6,7 +6,7 @@ const TOKEN_TYPE = require('./constent')
 //#                                                                             #
 //###############################################################################
 
-class AST {}
+class AST { }
 
 class BinOp {
   constructor(left, op, right) {
@@ -51,7 +51,7 @@ class Var {
   }
 }
 
-class NoOp {}
+class NoOp { }
 
 class Program {
   constructor(name, block) {

@@ -2,15 +2,15 @@ const fs = require('fs')
 const Lexer = require('./lexer')
 const Parser = require('./parser')
 const { Interpreter } = require('./interpreter')
-const { SymbolTableBuilder } = require('./symbol')
+const { SemanticAnalyzer } = require('./symbol')
 
-fs.readFile('part12.txt', function (err, data) {
+fs.readFile('part13.txt', function (err, data) {
   const text = data.toString()
   const lexer = new Lexer(text)
   const parser = new Parser(lexer)
   const tree = parser.parse()
 
-  const symtabBuilder = new SymbolTableBuilder()
+  const symtabBuilder = new SemanticAnalyzer()
   symtabBuilder.visit(tree)
   console.log(symtabBuilder.symtab)
 

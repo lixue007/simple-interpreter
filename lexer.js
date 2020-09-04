@@ -98,7 +98,7 @@ class Lexer {
       result += this.currentChar
       this.advance()
     }
-    const t = RESERVED_KEYWORDS[result] || token(TOKEN_TYPE.ID, result)
+    const t = RESERVED_KEYWORDS[result.toUpperCase()] || token(TOKEN_TYPE.ID, result)
     return t
   }
 
